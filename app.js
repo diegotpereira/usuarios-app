@@ -27,9 +27,10 @@ function lerDadosUsuario() {
 
         snap.forEach(childSnap => {
 
-            let key = childSnap.key, value = childSnap.val()
+            let key = childSnap.key,
+                value = childSnap.val()
 
-            let $li =  document.createElement("li")
+            let $li = document.createElement("li")
 
             // Icon Editar 
             let editarIconUI = document.createElement("span")
@@ -54,7 +55,7 @@ function lerDadosUsuario() {
             usuarioListaUI.append($li)
 
         })
-   
+
     })
 }
 
@@ -65,6 +66,7 @@ function usuarioClicado(e) {
 
     usuarioRef.on("value", snap => {
         usuarioDetalheUI.innerHTML = ""
+
         snap.forEach(childSnap => {
             var $p = document.createElement("p");
             $p.innerHTML = childSnap.key + " - " + childSnap.val()
@@ -78,19 +80,19 @@ addUsuarioBtnUI.addEventListener("click", addUsuarioBtnClicado)
 
 // ADICIONAR USUÁRIOS
 function addUsuarioBtnClicado() {
-    
+
     const usuariosRef = bancoDadosRef.child('Usuarios');
     const addUsuarioEntradaUI = document.getElementsByClassName("usuario-entrada")
 
     let novoUsuario = {
-        
+
     }
 
-    for(let i = 0, len = addUsuarioEntradaUI.length; i < len; i++) {
+    for (let i = 0, len = addUsuarioEntradaUI.length; i < len; i++) {
 
         let key = addUsuarioEntradaUI[i].getAttribute('data-key')
-        let value = addUsuarioEntradaUI[i].value 
-        novoUsuario[key] = value 
+        let value = addUsuarioEntradaUI[i].value
+        novoUsuario[key] = value
     }
 
     usuariosRef.push(novoUsuario)
@@ -101,7 +103,7 @@ function addUsuarioBtnClicado() {
 function deletarBtnClicado(e) {
     e.stopPropagation()
 
-    var usuarioID = e. target.getAttribute("usuarioid")
+    var usuarioID = e.target.getAttribute("usuarioid")
     const usuarioRef = bancoDadosRef.child('Usuarios/' + usuarioID)
 
     usuarioRef.remove()
@@ -114,13 +116,13 @@ function editarBtnClicado(e) {
     // definir o ID do usuário para o campo de entrada oculto
     document.querySelector(".editar-usuarioid").value = e.target.getAttribute("usuarioid")
 
-    const usuarioRef = bancoDadosRef.child('Usuarios/' +e.target.getAttribute("usuarioid"))
+    const usuarioRef = bancoDadosRef.child('Usuarios/' + e.target.getAttribute("usuarioid"))
 
     // definir dados para o campo do usuário
-    const editarUsuarioEntradaUI = document.querySelector(".editar-usuario-entrada")
+    const editarUsuarioEntradaUI = document.querySelectorAll(".editar-usuario-entrada")
 
     usuarioRef.on("value", snap => {
-        for(var i = 0, len = editarUsuarioEntradaUI.length; i < len; i++) {
+        for (var i = 0, len = editarUsuarioEntradaUI.length; i < len; i++) {
 
             var key = editarUsuarioEntradaUI[i].getAttribute("data-key")
             editarUsuarioEntradaUI[i].value = snap.val()[key]
@@ -131,7 +133,7 @@ function editarBtnClicado(e) {
 }
 
 function salvarUsuarioBtnClicado(e) {
-    const usuarioID = document.querySelector(".editar-usuarioid").value 
+    const usuarioID = document.querySelector(".editar-usuarioid").value
     const usuarioRef = bancoDadosRef.child('Usuarios/' + usuarioID)
 
     var editarUsuarioObjeto = {
@@ -143,7 +145,7 @@ function salvarUsuarioBtnClicado(e) {
     editarUsuarioEntradaUI.forEach(function(textField) {
         let key = textField.getAttribute("data-key")
         let value = textField.value
-        editarUsuarioObjeto[textField.getAttribute("data-key")] = textField.value 
+        editarUsuarioObjeto[textField.getAttribute("data-key")] = textField.value
     })
 
     usuarioRef.update(editarUsuarioObjeto)

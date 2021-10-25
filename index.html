@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="meuEstilo.css">
-    
+
 </head>
+
 <body>
     <h1>
         Firebase CRUD com Vanilla Javascript
-        <br />
-        <small>
-            <em>01 Ler Dado</em>
-        </small>
+        <br/><small><em>Usuário App</em></small>
     </h1>
-    <button id="open-add-usuario-form-btn">+</button>
-
-        <!-- Modulo Adicionar Usuário -->
-        <section id="add-usuario-modulo">
+    <!-- Modulo Adicionar Usuário -->
+    <section id="add-usuario-modulo">
+        <button id="open-add-usuario-form-btn">+</button>
+        <form>
             <h2>Adicionar Usuário</h2>
             <label for="">Nome:</label><br>
             <input type="text" name="" id="" data-key="nome" class="usuario-entrada"><br>
@@ -27,27 +26,32 @@
             <input type="text" name="" id="" data-key="idade" class="usuario-entrada"><br>
             <label for="">Email:</label><br>
             <input type="text" name="" id="" data-key="email" class="usuario-entrada"><br>
-
             <button type="button" id="add-usuario-btn">Adicionar Usuário</button>
-        </section>
+        </form>
+    </section>
 
-        <!-- modulo editar usuario  -->
-        <section id="editar-usuario-modulo">
-            <form>
-                <h2>Editar Usuário</h2>
-                <input type="hidden" class="editar-usuarioid">
-                nome:<br>
-                <input type='text' data-key='nome' class='editar-usuario-entrada'><br>
-                idade:<br>
-                <input type='text' data-key='idade' class='editar-usuario-entrada'><br>
-                email:<br>
-                <input type='text' data-key='email' class='editar-usuario-entrada'><br>
-                <button type="button" id="editar-usuario-btn">Salvar</button>
-            </form>
-        </section>
-        <ul id="usuario-lista"></ul>
-        <div id="usuario-detalhe"></div>
+    <!-- modulo editar usuario  -->
+    <section id="editar-usuario-modulo">
+        <form>
+            <h2>Editar Usuário</h2>
+            <input type="hidden" class="editar-usuarioid">
+
+            <label for="">Nome</label><br>
+            <input type='text' data-key='nome' class='editar-usuario-entrada' style="width: 150px;">
+
+            <label for="">Idade</label><br>
+            <input type='text' data-key='idade' class='editar-usuario-entrada' style="width: 150px;">
+
+            <label for="">Email</label><br>
+            <input type='text' data-key='email' class='editar-usuario-entrada' style="width: 150px;">
+
+            <button type="button" id="editar-usuario-btn">Salvar</button>
+        </form>
+    </section>
+    <ul id="usuario-lista"></ul>
+    <div id="usuario-detalhe"></div>
 </body>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
 </html>
