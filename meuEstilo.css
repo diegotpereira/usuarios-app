@@ -108,9 +108,9 @@ h1 {
     background-color: #e1e1e1;
     border: 1px solid #999;
     top: 149px;
-    left: 160px;
+    left: 202px;
     padding: 10px;
-    width: 150px;
+    width: 202px;
 }
 
 #usuario-lista li:hover~#editar-usuario-modulo {
