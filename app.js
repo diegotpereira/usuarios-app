@@ -18,26 +18,6 @@ const usuariosRef = bancoDadosRef.child('Usuarios');
 
 lerDadosUsuario()
 
-
-// function lerDadosUsuario() {
-//     const usuarioListaUI = document.getElementById("usuario-lista")
-//     usuariosRef.on("value", snap => {
-//         usuarioListaUI.innerHTML = ""
-//         snap.forEach(childSnap => {
-//             let key = childSnap.key,
-//                 value = childSnap.val()
-            
-//             let $li = document.createElement("li")
-
-//             $li.innerHTML = value.nome 
-
-//             $li.setAttribute("usuario-key", key)
-//             $li.addEventListener("click", usuarioClicado)
-//             usuarioListaUI.append($li)
-//         })
-//     })
-// }
-
 function lerDadosUsuario() {
     const usuarioListaUI = document.getElementById("usuario-lista")
 
@@ -51,15 +31,23 @@ function lerDadosUsuario() {
 
             let $li =  document.createElement("li")
 
-            // Icone Editar 
+            // Icon Editar 
             let editarIconUI = document.createElement("span")
             editarIconUI.class = "editar-usuario"
             editarIconUI.innerHTML = " ✎"
             editarIconUI.setAttribute("usuarioid", key)
             editarIconUI.addEventListener("click", editarBtnClicado)
 
-            $li.innerHTML = value.email
+            // Icon Deletar
+            let deletarIconUI = document.createElement("span")
+            deletarIconUI.class = "deletar-usuario"
+            deletarIconUI.innerHTML = " X"
+            deletarIconUI.setAttribute("usuarioid", key)
+            deletarIconUI.addEventListener("click", deletarBtnClicado)
+
+            $li.innerHTML = value.nome
             $li.append(editarIconUI)
+            $li.append(deletarIconUI)
 
             $li.setAttribute("usuario-key", key)
             $li.addEventListener("click", usuarioClicado)
@@ -68,38 +56,20 @@ function lerDadosUsuario() {
         })
    
     })
-    // usuariosRef.on("child_added", snap => {
-    //     let usuario = snap.val();
-    
-    //     let $li = document.createElement("li")
-    //     $li.innerHTML = usuario.nome
-    //     $li.innerHTML = usuario.email
-    //     $li.setAttribute("child-key", snap.key)
-    //     $li.addEventListener("click", usuarioClicado)
-    //     usuarioListaUI.append($li)
-    // })
 }
-// usuariosRef.on("child_added", snap => {
-//     let usuario = snap.val();
-
-//     let $li = document.createElement("li")
-//     $li.innerHTML = usuario.nome
-//     $li.innerHTML = usuario.email
-//     $li.setAttribute("child-key", snap.key)
-//     $li.addEventListener("click", usuarioClicado)
-//     usuarioListaUI.append($li)
-// })
 
 function usuarioClicado(e) {
-    var usuarioID = e.target.getAttribute("child-key")
-    const usuarioRef = bancoDadosRef.child('usuarios/' + usuarioID)
+    var usuarioID = e.target.getAttribute("usuario-key")
+    const usuarioRef = bancoDadosRef.child('Usuarios/' + usuarioID)
     const usuarioDetalheUI = document.getElementById("usuario-detalhe")
 
-    usuarioDetalheUI.innerHTML = ""
-    usuarioRef.on("child_added", snap => {
-        var $p = document.createElement("p");
-        $p.innerHTML = snap.key + " - " + snap.val()
-        usuarioDetalheUI.append($p)
+    usuarioRef.on("value", snap => {
+        usuarioDetalheUI.innerHTML = ""
+        snap.forEach(childSnap => {
+            var $p = document.createElement("p");
+            $p.innerHTML = childSnap.key + " - " + childSnap.val()
+            usuarioDetalheUI.append($p)
+        })
     })
 }
 
@@ -128,6 +98,15 @@ function addUsuarioBtnClicado() {
     // console.log(myPro)
 }
 
+function deletarBtnClicado(e) {
+    e.stopPropagation()
+
+    var usuarioID = e. target.getAttribute("usuarioid")
+    const usuarioRef = bancoDadosRef.child('Usuarios/' + usuarioID)
+
+    usuarioRef.remove()
+}
+
 // EDITAR USUÁRIO
 function editarBtnClicado(e) {
     document.getElementById('editar-usuario-modulo').style.display = "block"
@@ -135,13 +114,15 @@ function editarBtnClicado(e) {
     // definir o ID do usuário para o campo de entrada oculto
     document.querySelector(".editar-usuarioid").value = e.target.getAttribute("usuarioid")
 
-    const usuarioRef = bancoDadosRef.child('usuarios/' +e.target.getAttribute("usuarioid"))
+    const usuarioRef = bancoDadosRef.child('Usuarios/' +e.target.getAttribute("usuarioid"))
 
     // definir dados para o campo do usuário
     const editarUsuarioEntradaUI = document.querySelector(".editar-usuario-entrada")
 
     usuarioRef.on("value", snap => {
         for(var i = 0, len = editarUsuarioEntradaUI.length; i < len; i++) {
+
+            var key = editarUsuarioEntradaUI[i].getAttribute("data-key")
             editarUsuarioEntradaUI[i].value = snap.val()[key]
         }
     })
@@ -151,7 +132,7 @@ function editarBtnClicado(e) {
 
 function salvarUsuarioBtnClicado(e) {
     const usuarioID = document.querySelector(".editar-usuarioid").value 
-    const usuarioRef = bancoDadosRef.child('usuarios', + usuarioID)
+    const usuarioRef = bancoDadosRef.child('Usuarios/' + usuarioID)
 
     var editarUsuarioObjeto = {
 
@@ -165,6 +146,6 @@ function salvarUsuarioBtnClicado(e) {
         editarUsuarioObjeto[textField.getAttribute("data-key")] = textField.value 
     })
 
-    usuariosRef.update(editarUsuarioObjeto)
+    usuarioRef.update(editarUsuarioObjeto)
     document.getElementById('editar-usuario-modulo').style.display = "none"
 }

@@ -16,22 +16,22 @@ h1 {
 }
 
 /*---Ler Dados Usuário---*/
-#usuarioLista {
+#usuario-lista {
     margin: 0;
     padding: 0;
-    width: 200px;
+    width: 180px;
     float: left;
     margin: 10px;
     border: 1px solid #4fc3fc;
 }
 
-#usuarioLista h2 {
+#usuario-lista h2 {
     padding: 10px;
     margin: 0;
     color: white;
 }
 
-#usuarioLista  li {
+#usuario-lista  li {
     padding: 5px 10px;
     border-top: 1px solid #4fc3fc;
     cursor: pointer;
@@ -40,11 +40,11 @@ h1 {
     list-style: none;
 }
 
-#usuarioLista li:hover {
+#usuario-lista li:hover {
     background: #4fc3fc;
 }
 
-#usuarioDetalhe {
+#usuario-detalhe {
     float: left;
     width: 200px;
     margin: 10px;
@@ -55,3 +55,66 @@ h1 {
 }
 
 /* Modulo Adicionar Usuário */
+#add-usuario-modulo {
+    width: 30px;
+    margin-bottom: 1px;
+    margin-left:10px;
+    margin-top: 10px;
+}
+
+#add-usuario-modulo #open-add-usuario-form-btn {
+    background: #54bb7d;
+    font-size: 1.5em;
+    color: white;
+    padding-bottom: 5px;
+}
+
+#add-usuario-modulo form {
+    position:absolute;
+    padding: 10px;
+    width: 150px;
+    background-color: #e1e1e1;
+    border: 1px solid #999;
+    display: none;
+}
+
+#add-usuario-modulo form input {
+    width: 97%;
+    margin:2px 0;
+}
+
+#add-usuario-modulo form button {
+    background: #54bb7d;
+    font-size: 1em;
+    padding: 0px 10px;
+    color: white;
+    margin-top: 10px;
+}
+
+#add-usuario-modulo:hover form {
+    display: block;
+}
+
+/* Editar */
+#editar-usuario-modulo {
+    display: none;
+    position: absolute;
+    background-color: #e1e1e1;
+    border: 1px solid #999;
+    top: 149px;
+    left: 160px;
+    padding: 10px;
+    width: 150px;
+}
+
+#usuario-lista li:hover~#editar-usuario-modulo {
+    display: none;
+}
+
+#editar-usuario-modulo form button {
+    background: #54bb7d;
+    font-size: 1em;
+    padding: 0px 10px;
+    color: white;
+    margin-top: 10px;
+}
